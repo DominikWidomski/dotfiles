@@ -147,3 +147,7 @@ fi
 
 HISTSIZE=10000
 HISTFILESIZE=20000
+
+if [[ "$OSTYPE" = "Darwin"* ]]; then
+	alias tmux='tmux -f ~/.tmux-macos.conf'
+fi

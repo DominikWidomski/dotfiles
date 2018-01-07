@@ -1,3 +1,10 @@
+# Reset (uncommit) last commit
+#
+function resetLastCommit()
+{
+	git reset HEAD^
+}
+
 # 
 # Convert the last commit to a stash with same name as commit message and a number prefix
 # 

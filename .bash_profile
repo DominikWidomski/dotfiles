@@ -144,3 +144,6 @@ export HISTCONTROL=ignoreboth:erasedups
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
 fi
+
+HISTSIZE=10000
+HISTFILESIZE=20000

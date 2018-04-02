@@ -92,12 +92,18 @@ function fixupLine()
 		COMMIT=$(git log --pretty='%H' -n 1 --skip=$SKIP -u -L $LINE_NUMBER,$LINE_NUMBER:$FILE_NAME | head -n1 | xargs echo -n)
 
 		echo "Last commit was $COMMIT"
-		read -p "What would you like to do? [next, prev, info, commit, quit]: " ACTION
+		read -p "What would you like to do? [next, prev, info, copy, commit, quit]: " ACTION
 
 		if [[ $ACTION == "info" ]]; then
 			# Doesn't seem to work for previous commits... filename changed...
 			# set new filename here if it changes?
 			git log -p --follow -n 1 $COMMIT -- $FILE_NAME
+		fi
+
+		# copy the commit hash
+		if [[ $ACTION == "copy" ]]; then
+			printf $COMMIT | pbcopy
+			echo "✔ 📋 Copied hash to clipboard!"
 		fi
 
 		if [[ $ACTION == "next" ]]; then
@@ -107,11 +113,34 @@ function fixupLine()
 		if [[ $ACTION == "prev" ]]; then
 			SKIP=$[$SKIP -1]
 		fi
+
+		if [[ $ACTION == "commit" ]]; then
+			echo "Nothing for now..."
+		fi		
 	done
 
 	echo "FINISHED"
 
 	return
+}
+
+# Attempts to find the earliest commit that we're trying to fixup to
+function findEarliestFixup()
+{
+	if (( "$#" != 2 )); then
+		echo "Usage: findEarliestFixup <commit_a> <commit_b>"
+	fi
+
+	SHA1=$1
+	SHA2=$2
+
+	echo "$SHA1 -> $SHA2"
+
+	if [[ $(git rev-list $SHA1 | grep $SHA2) ]]; then
+		printf "A is ancestor of B \n";
+	else 
+		printf "NOT AN ANCESTOR \n";
+	fi
 }
 
 function la() {
@@ -154,3 +183,8 @@ fi
 
 export TERM="xterm-color"
 export PS1='\[\e[0;33m\]\u\[\e[0m\]@\[\e[0;32m\]\h\[\e[0m\]:\[\e[0;34m\]\w\[\e[0m\]\$ '
+
+export NVM_DIR="/Users/dddom/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+alias chrome-canary="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary"

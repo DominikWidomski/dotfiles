@@ -17,5 +17,5 @@
 	required = true
 	clean = git-lfs clean -- %f
 [alias]
-	cz = commit
-	c = commit
+	commit = cz
+	c = cz

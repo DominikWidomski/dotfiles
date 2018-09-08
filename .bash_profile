@@ -89,7 +89,7 @@ function fixupLine()
 
 	while [[ $ACTION != "quit" ]]
 	do
-		COMMIT=$(git log --pretty='%H' -n 1 --skip=$SKIP -u -L $LINE_NUMBER,$LINE_NUMBER:$FILE_NAME | head -n1 | xargs echo -n)
+		COMMIT=$(git log --pretty='%H by %an, on %ar. %s%n' -n 1 --skip=$SKIP -u -L $LINE_NUMBER,$LINE_NUMBER:$FILE_NAME | head -n1 | xargs echo -n)
 
 		echo "Last commit was $COMMIT"
 		read -p "What would you like to do? [next, prev, info, copy, commit, quit]: " ACTION
@@ -143,6 +143,18 @@ function findEarliestFixup()
 	fi
 }
 
+# Pull with overwriting local branch.
+# I associate/liken this function to `git push --force` therefore the naming
+function pullForce()
+{
+	git pull --rebase
+}
+
+# Proxy through my digital ocean droplet with sshuttle
+function sshProxy() {
+	sshuttle -r root@178.62.116.88 0.0.0.0/0 -v --dns
+}
+
 function la() {
  	ls -l  "$@" | awk '
     {
@@ -192,3 +204,6 @@ nvm use 10
 
 alias chrome-canary="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary"
 alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
+
+# TODO: Add a .bash/vars file to store those with gitkeep or something and otherwise empty
+export GREN_GITHUB_TOKEN=5aed58c42a8de6cadb22c0366f500b352065f292

@@ -182,9 +182,10 @@ export PATH="~/.composer/vendor/bin:$PATH"
 
 export HISTCONTROL=ignoreboth:erasedups
 
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  . $(brew --prefix)/etc/bash_completion
-fi
+# Disabled because generally really slow...
+# if [ -f $(brew --prefix)/etc/bash_completion ]; then
+#   . $(brew --prefix)/etc/bash_completion
+# fi
 
 HISTSIZE=10000
 HISTFILESIZE=20000
@@ -195,6 +196,9 @@ fi
 
 export TERM="xterm-color"
 export PS1='\[\e[0;33m\]\u\[\e[0m\]@\[\e[0;32m\]\h\[\e[0m\]:\[\e[0;34m\]\w\[\e[0m\]\$ '
+
+# Check what's going on on laungh by running this:
+# PS4='+ $BASH_SOURCE:$LINENO:' bash -xic ''
 
 export NVM_DIR="/Users/dddom/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

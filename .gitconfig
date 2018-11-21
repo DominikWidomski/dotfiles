@@ -1,5 +1,6 @@
 [core]
 	excludesfile = /Users/dddom/.gitignore_global
+	autocrlf = input
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 

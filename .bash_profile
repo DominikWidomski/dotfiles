@@ -208,3 +208,7 @@ alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir
 
 # TODO: Add a .bash/vars file to store those with gitkeep or something and otherwise empty
 export GREN_GITHUB_TOKEN=5aed58c42a8de6cadb22c0366f500b352065f292
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/openssl/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl/include"
+export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig"
